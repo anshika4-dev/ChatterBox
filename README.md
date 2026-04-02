@@ -1,5 +1,4 @@
 <div align="center">
-
 # ✨ ChatterBox ✨
 
 **A refined social media platform inspired by community-driven connection, built with React, Appwrite, and Tailwind CSS.**
