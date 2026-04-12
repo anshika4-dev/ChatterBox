@@ -17,26 +17,21 @@ const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
   const [creator, setCreator] = useState<any>(post.creator || null);
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(!post.creator);
 
   useEffect(() => {
     if (post.creator) {
       setCreator(post.creator);
-      setIsLoading(false);
     } else if (post.userId) {
-      setIsLoading(true);
       // Fetch creator info if not embedded
       databases
         .getDocument(appwriteConfig.databaseId, appwriteConfig.userCollectionId, post.userId)
         .then((userData) => {
           setCreator(userData);
-          setIsLoading(false);
         })
         .catch((error) => {
           console.log("Error fetching creator:", error);
           // Set fallback creator if fetch fails
           setCreator({ $id: post.userId, name: "Unknown User", imageUrl: "" });
-          setIsLoading(false);
         });
     }
   }, [post]);
